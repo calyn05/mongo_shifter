@@ -1,0 +1,54 @@
+<div class="dashboard__container">
+  <app-admin-side-bar></app-admin-side-bar>
+  <div class="dashboard flex-column">
+    <h1 class="fs-secondary__heading">Profile</h1>
+    <div class="header-container flex">
+      <h2 class="fs-secondary__heading">
+        {{ dbUser.firstName | titlecase }}
+        {{ dbUser.lastName | titlecase }}
+      </h2>
+      <button
+        type="button"
+        routerLink="/admin-workers/{{ userId }}/shifts/{{ adminId }}"
+      >
+        Shifts
+      </button>
+    </div>
+
+    <section class="flex-column edit-profile_section">
+      <div class="data-container flex-column">
+        <div class="data-container__info flow">
+          <p class="flex">
+            Account created at:
+            <span>{{ dbUser.created | date : "medium" }}</span>
+          </p>
+          <p class="flex">
+            Last sign in: <span>{{ dbUser.updated | date : "medium" }}</span>
+          </p>
+          <p class="flex wrap">
+            Email: <span>{{ dbUser.email }}</span>
+            <a routerLink="/admin-workers/{{ userId }}/edit/email/{{ adminId }}"
+              >Change</a
+            >
+          </p>
+
+          <p class="flex">
+            Name:
+            <span
+              >{{ dbUser.firstName | titlecase }}
+              {{ dbUser.lastName | titlecase }}</span
+            >
+            <a routerLink="/admin-workers/{{ userId }}/edit/name/{{ adminId }}"
+              >Change</a
+            >
+          </p>
+        </div>
+        <app-worker-comments></app-worker-comments>
+      </div>
+
+      <button type="submit" class="delete-button" (click)="confirmDelete()">
+        Delete user
+      </button>
+    </section>
+  </div>
+</div>

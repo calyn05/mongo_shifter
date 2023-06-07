@@ -1,0 +1,56 @@
+<app-header></app-header>
+<h2 class="fs-secondary__heading">Login</h2>
+
+<div class="auth-container flex-column">
+  <section class="intro-section flex-column">
+    <h3 class="ff-handlee fs-secondary__heading">Welcome to Mongo Shifter</h3>
+    <img
+      src="../../../../assets/images/mongo_shifter_login_page.png"
+      alt="mongo shifter web developer"
+    />
+    <p class="ff-handlee">
+      Mongo Shifter is a simple, easy to use, and secure shift manager web
+      application.
+    </p>
+  </section>
+
+  <section>
+    <p class="guide-paragraph">
+      Not registered yet? Sign-up <a routerLink="/register">here!</a>
+    </p>
+    <form
+      class="flex-column"
+      [formGroup]="loginForm"
+      (ngSubmit)="login(email.value, password.value)"
+    >
+      <fieldset class="flex-column flow">
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            #email
+            autocomplete="email"
+            formControlName="email"
+            placeholder="Email"
+          />
+        </div>
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            #password
+            autocomplete="current-password"
+            formControlName="password"
+            placeholder="Password"
+          />
+          <app-show-password></app-show-password>
+          <p class="forgot-pass">
+            Forgot password? <a routerLink="/forgot-password">Reset</a>
+          </p>
+        </div>
+        <button type="submit" [disabled]="!loginForm.valid">Login</button>
+      </fieldset>
+    </form>
+  </section>
+</div>
+<app-footer></app-footer>

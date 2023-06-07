@@ -1,0 +1,69 @@
+<nav class="" [ngClass]="{ 'flex-column flow': true, 'flow active': active }">
+  <a
+    [routerLink]="'/admin-dashboard' + '/' + adminId"
+    *ngIf="active"
+    class="logo ff-handlee"
+    >MongoShifter</a
+  >
+  <img
+    *ngIf="!active"
+    src="../../../../assets/images/mongo_shifter_logo.png"
+    alt="mongo shifter logo"
+    class="logo-img"
+  />
+  <div class="welcome-container">
+    <p class="hello-para">Hello,</p>
+    <a>{{ username | titlecase }}</a>
+  </div>
+  <ul [ngClass]="{ 'flex-column': true, ' flow': active }">
+    <li
+      [routerLink]="'/admin-dashboard/' + adminId"
+      routerLinkActive="active-link"
+      [ngClass]="{
+        'flex nav-link': active,
+        'nav-wrapper flex-column fs-300': !active
+      }"
+    >
+      <mat-icon>business</mat-icon>
+      <a> Dashboard </a>
+    </li>
+    <li
+      [routerLink]="'/admin-shifts/' + adminId"
+      routerLinkActive="active-link"
+      [ngClass]="{
+        'flex nav-link': active,
+        'nav-wrapper flex-column fs-300': !active
+      }"
+    >
+      <mat-icon>list</mat-icon>
+      <a>Shifts</a>
+    </li>
+    <li
+      [routerLink]="'/admin-workers/' + adminId"
+      routerLinkActive="active-link"
+      [ngClass]="{
+        'flex nav-link': active,
+        'flex-column fs-300 nav-wrapper': !active
+      }"
+    >
+      <mat-icon>person</mat-icon>
+      <a>Workers</a>
+    </li>
+    <li
+      (click)="logout()"
+      [ngClass]="{
+        'flex nav-link': active,
+        'flex-column fs-300 nav-wrapper': !active
+      }"
+    >
+      <mat-icon>logout</mat-icon>
+      <a>Logout</a>
+    </li>
+  </ul>
+  <mat-icon class="toggle-sidebar" *ngIf="!active" (click)="toggleSidebar()"
+    >apps</mat-icon
+  >
+  <mat-icon class="toggle-sidebar" *ngIf="active" (click)="toggleSidebar()">
+    <span> more_vert</span></mat-icon
+  >
+</nav>

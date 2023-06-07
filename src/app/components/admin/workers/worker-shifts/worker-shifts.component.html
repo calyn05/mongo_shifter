@@ -1,0 +1,74 @@
+<div class="dashboard__container">
+  <app-admin-side-bar></app-admin-side-bar>
+  <div class="dashboard flex-column">
+    <div class="header-container flex">
+      <h1 class="fs-secondary__heading">
+        {{ firstName | titlecase }} {{ lastName | titlecase }} shifts
+      </h1>
+      <mat-icon routerLink="/admin-workers/{{ workerId }}/{{ adminId }}"
+        >close</mat-icon
+      >
+    </div>
+    <div class="search-container flex" *ngIf="shifts.length > 0">
+      <form
+        (ngSubmit)="
+          searchByDate(startDate.value, endDate.value);
+          startDate.value = '';
+          endDate.value = ''
+        "
+      >
+        <fieldset>
+          <legend>Search by date</legend>
+          <span>From: </span>
+          <input type="date" #startDate />
+          <span>to: </span>
+          <input type="date" #endDate />
+          <button type="submit">Search</button>
+        </fieldset>
+      </form>
+
+      <form (ngSubmit)="searchByLocation(location.value); location.value = ''">
+        <fieldset>
+          <legend>Search by location</legend>
+          <input type="text" placeholder="Location" #location />
+          <button type="submit">Search</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="shift-container flex-column">
+      <p *ngIf="fromDate && toDate">
+        Shifts between {{ fromDate }} - {{ toDate }}
+      </p>
+      <p *ngIf="locationTerm">Results with {{ locationTerm | uppercase }}</p>
+      <table *ngIf="shifts.length > 0">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Shift date</th>
+            <th>Shift start</th>
+            <th>Shift end</th>
+            <th>Price / h</th>
+            <th>Shift location</th>
+            <th>Profit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let shift of shifts; let i = index"
+            routerLink="/admin-shifts/{{ shift._id }}/edit/{{ adminId }}"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ shift.startDate | date }}</td>
+            <td>{{ shift.startTime }}</td>
+            <td>{{ shift.endTime }}</td>
+            <td>{{ shift.wage | currency }}</td>
+            <td>{{ shift.location | titlecase }}</td>
+            <td>{{ shift.totalShiftWage() | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="center-text" *ngIf="shifts.length === 0">No shifts found</p>
+    </div>
+  </div>
+</div>

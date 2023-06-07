@@ -1,0 +1,107 @@
+<div class="dashboard__container">
+  <app-admin-side-bar></app-admin-side-bar>
+  <div class="dashboard flex-column">
+    <div class="forms-container flex-column">
+      <fieldset class="flex-column flow" [ngSwitch]="property">
+        <mat-icon routerLink="../../">close</mat-icon>
+
+        <legend>Change {{ property }}</legend>
+
+        <ng-container *ngSwitchCase="'email'">
+          <form [formGroup]="editForm" (ngSubmit)="updateEmail()">
+            <div class="input-container flex-column">
+              <p>Confirm the new email address</p>
+              <div class="form-field">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  #email
+                  autocomplete="email"
+                  placeholder="Email"
+                  formControlName="email"
+                />
+                <div
+                  *ngIf="
+                    editForm.controls['email'].invalid &&
+                    (editForm.controls['email'].dirty ||
+                      editForm.controls['email'].touched)
+                  "
+                  class="error"
+                >
+                  <p *ngIf="editForm.controls['email'].errors?.['required']">
+                    Required
+                  </p>
+                  <p *ngIf="editForm.controls['email'].errors?.['email']">
+                    Enter a valid email
+                  </p>
+                </div>
+              </div>
+            </div>
+            <button type="submit" [disabled]="!editForm.valid">Update</button>
+          </form>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'name'">
+          <form [formGroup]="editForm" (ngSubmit)="updateName()">
+            <div class="input-container flex-column">
+              <p>Confirm first name and last name</p>
+              <div class="form-field">
+                <label for="first name">First name</label>
+                <input
+                  type="text"
+                  #firstName
+                  autocomplete="given-name"
+                  placeholder="First name"
+                  formControlName="firstName"
+                  maxlength="21"
+                />
+                <div
+                  *ngIf="
+                    !f['firstName'].valid &&
+                    (f['firstName'].dirty || f['firstName'].touched)
+                  "
+                  class="error"
+                >
+                  <p *ngIf="f['firstName'].errors?.['required']">Required</p>
+                  <p *ngIf="f['firstName'].errors?.['minlength']">
+                    Min 2 characters
+                  </p>
+                  <p *ngIf="f['firstName'].errors?.['maxlength']">
+                    Max 20 characters
+                  </p>
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="last name">Last name</label>
+                <input
+                  type="text"
+                  #lastName
+                  autocomplete="family-name"
+                  placeholder="Last name"
+                  formControlName="lastName"
+                  maxlength="21"
+                />
+                <div
+                  *ngIf="
+                    !f['lastName'].valid &&
+                    (f['lastName'].dirty || f['lastName'].touched)
+                  "
+                  class="error"
+                >
+                  <p *ngIf="f['lastName'].errors?.['required']">Required</p>
+                  <p *ngIf="f['lastName'].errors?.['minlength']">
+                    Min 2 characters
+                  </p>
+                  <p *ngIf="f['lastName'].errors?.['maxlength']">
+                    Max 20 characters
+                  </p>
+                </div>
+              </div>
+            </div>
+            <button type="submit" [disabled]="!editForm.valid">Update</button>
+          </form>
+        </ng-container>
+      </fieldset>
+    </div>
+  </div>
+</div>

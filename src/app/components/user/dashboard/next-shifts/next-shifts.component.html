@@ -1,0 +1,29 @@
+<h3>Upcoming shifts: {{ nextShifts.length }}</h3>
+<div class="shift-container flex-column">
+  <table *ngIf="nextShifts.length > 0">
+    <thead>
+      <tr>
+        <th>Shift date</th>
+        <th>Start time</th>
+        <th>End time</th>
+        <th>Wage / h</th>
+        <th>Location</th>
+        <th>Income</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let shift of nextShifts; let i = index"
+        routerLink="/edit-shift/{{ shift._id }}/{{ userId }}"
+      >
+        <td>{{ shift.start | date }}</td>
+        <td>{{ shift.startTime }}</td>
+        <td>{{ shift.endTime }}</td>
+        <td>{{ shift.wage | currency }}</td>
+        <td>{{ shift.location | titlecase }}</td>
+        <td>{{ shift.totalShiftWage() | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="nextShifts.length === 0">No upcoming shift</p>
+</div>

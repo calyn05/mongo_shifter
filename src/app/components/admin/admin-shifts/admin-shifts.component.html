@@ -1,0 +1,97 @@
+<div class="dashboard__container">
+  <app-admin-side-bar></app-admin-side-bar>
+  <div class="dashboard flex-column">
+    <div class="flex header-container">
+      <h1 class="fs-secondary__heading">Shifts</h1>
+      <select [(ngModel)]="searchBy" *ngIf="shifts.length > 0">
+        <option value="search_by_date">Search by date</option>
+        <option value="search_by_worker">Search by worker</option>
+        <option value="search_by_location">Search by location</option>
+      </select>
+    </div>
+    <div class="search-container flex" *ngIf="shifts.length > 0">
+      <ng-container [ngSwitch]="searchBy">
+        <form
+          *ngSwitchDefault
+          (ngSubmit)="
+            searchByDate(startDate.value, endDate.value);
+            startDate.value = '';
+            endDate.value = ''
+          "
+        >
+          <fieldset>
+            <legend>Search by date</legend>
+            <span>From: </span>
+            <input type="date" #startDate />
+            <span>to: </span>
+            <input type="date" #endDate />
+            <button type="submit">Search</button>
+          </fieldset>
+        </form>
+
+        <form
+          *ngSwitchCase="'search_by_worker'"
+          (ngSubmit)="searchByWorker(worker.value); worker.value = ''"
+        >
+          <fieldset>
+            <legend>Search by worker</legend>
+            <input type="text" placeholder="Email" #worker />
+            <button type="submit">Search</button>
+          </fieldset>
+        </form>
+
+        <form
+          *ngSwitchCase="'search_by_location'"
+          (ngSubmit)="searchByLocation(location.value); location.value = ''"
+        >
+          <fieldset>
+            <legend>Search by location</legend>
+            <input type="text" placeholder="Location" #location />
+            <button type="submit">Search</button>
+          </fieldset>
+        </form>
+      </ng-container>
+    </div>
+
+    <div class="shift-container flex-column">
+      <p *ngIf="startDate && endDate">
+        Shifts between {{ startDate }} - {{ endDate }}
+      </p>
+      <p *ngIf="location">Results with {{ location | uppercase }}</p>
+      <p *ngIf="worker">Results with {{ worker | uppercase }}</p>
+      <table *ngIf="shifts.length > 0">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Worker</th>
+            <th>Shift date</th>
+            <th>Shift start</th>
+            <th>Shift end</th>
+            <th>Wage / h</th>
+            <th>Shift location</th>
+            <th>Profit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let shift of shifts; let i = index"
+            routerLink="/admin-shifts/{{ shift._id }}/edit/{{ adminId }}"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>
+              {{ shift.user.firstName | titlecase }}
+              {{ shift.user.lastName | titlecase }}
+            </td>
+            <td>{{ shift.startDate }}</td>
+            <td>{{ shift.startTime }}</td>
+            <td>{{ shift.endTime }}</td>
+            <td>{{ shift.wage | currency }}</td>
+            <td>{{ shift.location | titlecase }}</td>
+            <td>{{ shift.totalShiftWage() | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="center-text" *ngIf="shifts.length === 0">No shifts found</p>
+    </div>
+  </div>
+</div>

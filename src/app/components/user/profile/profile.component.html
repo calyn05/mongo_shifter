@@ -1,0 +1,92 @@
+<div class="dashboard__container">
+  <app-side-bar></app-side-bar>
+  <div class="dashboard flex-column">
+    <section>
+      <h1 class="fs-secondary__heading">
+        {{ user?.firstName + "'s" | titlecase }} Profile
+      </h1>
+    </section>
+
+    <section class="flex-column edit-profile_section">
+      <h2 class="fs-secondary__heading">Personal data</h2>
+      <div class="data-container flex-column flow">
+        <div class="data-container__info flow">
+          <p class="flex">
+            Account created at:
+            <span>{{ user?.created | date : "medium" }}</span>
+          </p>
+          <p class="flex">
+            Account updated at:
+            <span>{{ user?.updated | date : "medium" }}</span>
+          </p>
+          <p class="flex wrap">
+            Email: <span>{{ user?.email }}</span>
+            <a routerLink="/edit-profile/{{ user?._id }}/email">Change</a>
+          </p>
+          <p class="flex">
+            Name:
+            <span
+              >{{ user?.firstName | titlecase }}
+              {{ user?.lastName | titlecase }}</span
+            >
+            <a routerLink="/edit-profile/{{ user?._id }}/name">Change</a>
+          </p>
+          <p class="flex">
+            Password: <span>********</span>
+            <a routerLink="/edit-profile/{{ user?._id }}/password">Change</a>
+          </p>
+        </div>
+      </div>
+      <button class="delete-btn" (click)="confirmDelete(user!._id)">
+        Delete account
+      </button>
+    </section>
+
+    <section class="flex-column edit-profile_section">
+      <h2 class="fs-secondary__heading">Comments</h2>
+      <div class="data-container flex-column flow">
+        <div
+          *ngFor="let comment of user?.comments; let i = index"
+          class="flex-column flow"
+        >
+          <div class="data-container__info flex flow">
+            <div class="comment__header">
+              <h4 class="fw-700">Comment {{ i + 1 }}</h4>
+              <p class="fs-300">
+                Created: {{ comment.created | date : "medium" }}
+              </p>
+              <p class="fs-300">
+                Updated: {{ comment.updated | date : "medium" }}
+              </p>
+            </div>
+
+            <p>
+              {{ comment.description }}
+            </p>
+            <button class="edit-btn">
+              <mat-icon
+                *ngIf="!editActive || (editActive && comment._id !== editId)"
+                (click)="editComment(comment._id)"
+                >edit</mat-icon
+              >
+              <mat-icon
+                *ngIf="editActive && comment._id === editId"
+                (click)="closeEdit()"
+                >close</mat-icon
+              >
+            </button>
+          </div>
+          <app-edit-comment
+            *ngIf="comment._id === editId && editActive"
+          ></app-edit-comment>
+        </div>
+        <p
+          *ngIf="user?.comments !== null && (user?.comments)!.length === 0"
+          class="center-text"
+        >
+          You don't have any comments
+        </p>
+      </div>
+    </section>
+  </div>
+</div>

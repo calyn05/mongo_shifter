@@ -1,0 +1,8 @@
+app-worker-comments {
+  background-color: var(--main-background-color);
+}
+
+.header-container {
+  justify-content: space-between;
+  align-items: center;
+}

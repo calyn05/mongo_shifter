@@ -1,0 +1,36 @@
+<h3>{{ month | date : "MMMM" }} shifts</h3>
+<div class="shift-container flex-column">
+  <table>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Shift date</th>
+        <th>Shift start</th>
+        <th>Shift end</th>
+        <th>Price / h</th>
+        <th>Shift location</th>
+        <th>Shift wage</th>
+        <th>Worker</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let shift of shifts; let i = index"
+        routerLink="/admin-shifts/{{ shift._id }}/edit/{{ adminId }}"
+      >
+        <td>{{ i + 1 }}</td>
+        <td>{{ shift.start | date }}</td>
+        <td>{{ shift.startTime }}</td>
+        <td>{{ shift.endTime }}</td>
+        <td>{{ shift.wage | currency }}</td>
+        <td>{{ shift.location | titlecase }}</td>
+        <td>{{ shift.totalShiftWage() | currency }}</td>
+        <td>
+          {{ shift.user.firstName | titlecase }}
+          {{ shift.user.lastName | titlecase }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="shifts.length < 1">There are no shifts</p>
+</div>

@@ -1,0 +1,28 @@
+.chart-container {
+  position: relative;
+  width: 100%;
+  background: var(--section-background-color);
+  padding: 1rem 2rem;
+  border-radius: 5% 0;
+}
+
+@media screen and (max-width: 41.99em) {
+  .chart-container {
+    width: 99%;
+  }
+}
+
+h3 {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  border-bottom: 1px solid var(--main-txt-color);
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  font-size: 1.5rem;
+  border-bottom: 2px solid rgba(223, 70, 70, 0.788);
+  border-radius: 10%;
+}

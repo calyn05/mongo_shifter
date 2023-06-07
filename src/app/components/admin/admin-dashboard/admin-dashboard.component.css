@@ -1,0 +1,19 @@
+.dashboard__container {
+  display: flex;
+  width: 100%;
+}
+
+.dashboard {
+  margin: 0 1rem;
+  width: 100%;
+}
+
+app-workers-shifts {
+  width: 100%;
+  display: block;
+}
+
+app-admin-chart {
+  width: 100%;
+  display: block;
+}

@@ -1,0 +1,101 @@
+.dashboard__container {
+  display: flex;
+  width: 100%;
+}
+
+.dashboard {
+  margin: 0 1rem;
+  width: 100%;
+}
+
+h1 {
+  text-indent: 2rem;
+  margin: 1rem 0;
+}
+
+h2 {
+  text-align: center;
+  text-indent: unset !important;
+  border-bottom: 2px solid hsla(120, 61%, 50%, 0.733);
+  padding: 1rem !important;
+  margin-bottom: 1rem;
+  border-radius: 10%;
+}
+
+section {
+  position: relative;
+}
+
+.edit-profile_section {
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  background-color: var(--section-background-color);
+  flex-wrap: wrap;
+  padding-bottom: 5rem;
+}
+
+fieldset {
+  width: 100px;
+}
+
+p > span {
+  font-weight: var(--fw-500);
+  color: var(--highlight-color-link-hover);
+}
+
+p > a {
+  cursor: pointer;
+}
+
+.data-container {
+  width: 100%;
+  margin-bottom: 1rem;
+  grid-template-rows: 1fr 1fr;
+}
+
+@media screen and (min-width: 42em) {
+  .edit-profile_section {
+    padding: 2rem;
+  }
+}
+
+.data-container__info {
+  background-color: var(--main-background-color);
+  padding: 2rem;
+  border-radius: 10% 0 10% 0;
+  justify-content: space-between;
+}
+
+canvas {
+  height: 100%;
+}
+
+.delete-btn {
+  background-color: hsla(14, 93%, 63%, 0.3);
+}
+
+.delete-btn:hover {
+  background-color: hsl(14, 93%, 63%);
+}
+
+.edit-btn {
+  position: relative;
+  padding: 0 !important;
+  margin: 0 !important;
+  margin-right: 0.5rem !important;
+  height: fit-content !important;
+  width: fit-content !important;
+}
+
+mat-icon {
+  position: absolute;
+  border-radius: 50%;
+  color: var(--main-background-color);
+  background-color: var(--secondary-light-color);
+}
+
+.edit-btn:hover > mat-icon {
+  color: var(--secondary-light-color);
+  background-color: var(--section-background-color);
+}

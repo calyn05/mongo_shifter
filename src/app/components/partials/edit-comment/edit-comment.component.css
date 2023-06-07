@@ -1,0 +1,9 @@
+button[disabled] {
+  background-color: var(--secondary-dark-color);
+}
+
+form {
+  background-color: var(--main-background-color);
+  padding: 1rem;
+  border-radius: 1em;
+}

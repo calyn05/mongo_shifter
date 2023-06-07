@@ -1,0 +1,50 @@
+<div class="dashboard__container">
+  <app-admin-side-bar></app-admin-side-bar>
+  <div class="dashboard flex-column">
+    <h1 class="fs-secondary__heading">Workers</h1>
+
+    <div class="search-container flex" *ngIf="workers.length > 0">
+      <form (ngSubmit)="searchWorker(search.value); search.value = ''">
+        <fieldset>
+          <legend>Search worker</legend>
+          <input type="text" placeholder="Name" #search />
+          <button type="submit">Search</button>
+        </fieldset>
+      </form>
+    </div>
+    <p class="center-text" *ngIf="searchTerm">
+      Search results with: {{ searchTerm }}
+    </p>
+
+    <div class="shift-container flex-column">
+      <table *ngIf="workers.length > 0">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Email</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Comments</th>
+            <th>Updated</th>
+            <th>Signup</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let worker of workers; let i = index"
+            routerLink="/admin-workers/{{ worker._id }}/{{ adminId }}"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ worker.email }}</td>
+            <td>{{ worker.firstName | titlecase }}</td>
+            <td>{{ worker.lastName | titlecase }}</td>
+            <td>{{ worker.comments?.length || 0 }}</td>
+            <td>{{ worker.updated | date : "short" }}</td>
+            <td>{{ worker.created | date : "short" }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="center-text" *ngIf="workers.length === 0">No workers found</p>
+    </div>
+  </div>
+</div>

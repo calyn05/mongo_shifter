@@ -1,0 +1,187 @@
+<app-header></app-header>
+
+<h2 class="fs-secondary__heading">Register</h2>
+<div class="auth-container flex-column">
+  <section class="intro-section flex-column">
+    <h3 class="ff-handlee fs-secondary__heading">Welcome to Mongo Shifter</h3>
+    <img
+      src="../../../../assets/images/mongo_shifter_register_page.png"
+      alt="mongo shifter web developer"
+    />
+    <p class="ff-handlee">
+      Mongo Shifter is a simple, easy to use, and secure shift manager web
+      application.
+    </p>
+  </section>
+
+  <section class="form-section">
+    <p class="guide-paragraph">
+      Already have an account? Login <a routerLink="/login">here!</a>
+    </p>
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="
+        register(
+          email.value,
+          password.value,
+          firstName.value,
+          lastName.value,
+          isAdmin
+        )
+      "
+    >
+      <fieldset class="flex-column flow">
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            #email
+            autocomplete="email"
+            formControlName="email"
+            placeholder="Email"
+          />
+          <div
+            *ngIf="
+              registerForm.controls['email'].invalid &&
+              (registerForm.controls['email'].dirty ||
+                registerForm.controls['email'].touched)
+            "
+            class="error"
+          >
+            <p *ngIf="registerForm.controls['email'].errors?.['required']">
+              Required
+            </p>
+            <p *ngIf="registerForm.controls['email'].errors?.['email']">
+              Enter a valid email
+            </p>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            #password
+            autocomplete="new-password"
+            formControlName="password"
+            placeholder="Password"
+          />
+          <app-show-password></app-show-password>
+          <div
+            *ngIf="
+              !passwordValid && (f['password'].dirty || f['password'].touched)
+            "
+            class="error"
+          >
+            <p
+              *ngIf="!requireValid"
+              [class.invalid]="!requireValid && f['password'].dirty"
+            >
+              Required
+            </p>
+            <p *ngIf="!minLengthValid">Min 6 characters</p>
+            <p *ngIf="!maxLengthValid">Max 20 characters</p>
+            <p *ngIf="!hasNumberValid">At least 1 number</p>
+            <p *ngIf="!hasCapitalCaseValid">At least 1 uppercase</p>
+            <p *ngIf="!hasSmallCaseValid">At least 1 lowercase</p>
+            <p *ngIf="!hasSpecialCharactersValid">
+              At least 1 special character
+            </p>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="password">Confirm password</label>
+          <input
+            type="password"
+            #confirmPassword
+            autocomplete="new-password"
+            formControlName="confirmPassword"
+            placeholder="Confirm password"
+          />
+          <app-show-password></app-show-password>
+          <div
+            *ngIf="
+              !confirmPasswordValid &&
+              (f['confirmPassword'].dirty || f['confirmPassword'].touched)
+            "
+            class="error"
+          >
+            <p
+              *ngIf="f['confirmPassword'].errors?.['required']"
+              [class.invalid]="!requireValid && f['confirmPassword'].dirty"
+            >
+              Required
+            </p>
+            <p *ngIf="f['confirmPassword'].errors?.['minLength']">
+              Min 6 characters
+            </p>
+            <p
+              *ngIf="
+    f['confirmPassword'].errors?.['misMatch'] &&
+    f['confirmPassword'].dirty
+    "
+              [class.invalid]="true"
+            >
+              Passwords must match
+            </p>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="first name">First name</label>
+          <input
+            type="text"
+            #firstName
+            autocomplete="given-name"
+            formControlName="firstName"
+            placeholder="First name"
+            maxlength="21"
+          />
+          <div
+            *ngIf="
+              !firstNameValid &&
+              (f['firstName'].dirty || f['firstName'].touched)
+            "
+            class="error"
+          >
+            <p *ngIf="f['firstName'].errors?.['required']">Required</p>
+            <p *ngIf="f['firstName'].errors?.['minlength']">Min 2 characters</p>
+            <p *ngIf="f['firstName'].errors?.['maxlength']">
+              Max 20 characters
+            </p>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="last name">Last name</label>
+          <input
+            type="text"
+            #lastName
+            autocomplete="family-name"
+            formControlName="lastName"
+            placeholder="Last name"
+            maxlength="21"
+          />
+          <div
+            *ngIf="
+              !lastNameValid && (f['lastName'].dirty || f['lastName'].touched)
+            "
+            class="error"
+          >
+            <p *ngIf="f['lastName'].errors?.['required']">Required</p>
+            <p *ngIf="f['lastName'].errors?.['minlength']">Min 2 characters</p>
+            <p *ngIf="f['lastName'].errors?.['maxlength']">Max 20 characters</p>
+          </div>
+        </div>
+
+        <div class="checkbox-container flex">
+          <input type="checkbox" #admin formControlName="isAdmin" />
+          <label for="admin">Register as Admin</label>
+        </div>
+
+        <button type="submit" [disabled]="!registerForm.valid">Sign-up</button>
+      </fieldset>
+    </form>
+  </section>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,32 @@
+<h3>Comments</h3>
+<h4>User comments</h4>
+<div class="comments-container flow">
+  <div
+    *ngFor="let comment of comments; let i = index"
+    class="comment flex-column flow"
+  >
+    <div class="comment flex flow">
+      <div class="comment__header">
+        <h4 class="fw-700 fs-primary__heading">Comment {{ i + 1 }}</h4>
+        <p class="fs-300">Created: {{ comment.created | date : "medium" }}</p>
+        <p class="fs-300">Updated: {{ comment.updated | date : "medium" }}</p>
+      </div>
+      <p class="">
+        {{ comment.description }}
+      </p>
+      <button class="edit-btn">
+        <mat-icon
+          *ngIf="!editActive || (editActive && comment._id !== editId)"
+          (click)="confirmAndDelete(comment._id)"
+          >delete</mat-icon
+        >
+      </button>
+    </div>
+    <app-edit-comment
+      *ngIf="comment._id === editId && editActive"
+    ></app-edit-comment>
+  </div>
+  <p *ngIf="comments?.length === 0" class="center-text">
+    You don't have any comments
+  </p>
+</div>

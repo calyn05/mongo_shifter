@@ -1,0 +1,14 @@
+<form
+  [formGroup]="updateForm"
+  action="patch"
+  *ngIf="active"
+  (ngSubmit)="confirmUpdate(description.value)"
+>
+  <textarea name="edit-comment" #description formControlName="description">
+        {{ comment.description }}
+    </textarea
+  >
+  <button type="submit" [disabled]="updateForm.invalid || updateForm.pristine">
+    Update
+  </button>
+</form>
